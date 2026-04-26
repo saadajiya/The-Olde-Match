@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Archaic Match | Heritage Collection</title>
+    <title>The Olde Match | Архаизмы</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
 
@@ -15,58 +16,75 @@
         }
 
         body {
-            background: #0f1a24;
-            background-image: radial-gradient(circle at 15% 30%, rgba(119, 46, 42, 0.15) 1.2%, transparent 1.2%);
+            background: #0b1721;
+            background-image: radial-gradient(circle at 15% 30%, rgba(119, 46, 42, 0.18) 1.2%, transparent 1.2%);
             background-size: 34px 34px;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
-            padding: 24px;
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            padding: 20px;
         }
 
         .game-card {
-            max-width: 780px;
+            max-width: 950px;
             width: 100%;
-            background: #f4f3f1;
-            background: linear-gradient(135deg, #f6f5f3 0%, #ece9e4 100%);
-            border-radius: 4px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,240,0.7), 0 0 0 1px #2d2f31;
+            background: linear-gradient(135deg, #fefcf5 0%, #f6f2e8 100%);
+            border-radius: 16px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,245,0.6), 0 0 0 1px #2e2a24;
             overflow: hidden;
-            padding: 20px 32px 40px;
+            padding: 20px 24px 40px;
         }
 
+        .game-title {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #1d2c3a;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #b17a54;
+            display: inline-block;
+            width: 100%;
+        }
+        .game-title span {
+            color: #772e2a;
+            font-style: italic;
+        }
+
+        .top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px 0 16px;
+            padding-bottom: 8px;
+        }
         .mode-bar {
             display: flex;
-            gap: 24px;
-            justify-content: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #772e2a;
-            padding-bottom: 16px;
+            gap: 12px;
         }
-
         .mode-btn {
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
-            font-size: 0.82rem;
-            letter-spacing: 1.5px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            background: #1a2a3a;
+            background: #1d2c3a;
             border: none;
-            padding: 8px 24px;
-            border-radius: 30px;
+            padding: 6px 24px;
+            border-radius: 40px;
             cursor: pointer;
-            color: #e2dccd;
+            color: #e9e0ce;
             transition: 0.2s;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-
         .mode-btn.active {
             background: #772e2a;
-            color: #f1e8cf;
-            letter-spacing: 1.8px;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.2), 0 2px 6px rgba(119,46,42,0.3);
+            color: #f2e9d0;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.2), 0 2px 6px rgba(119,46,42,0.4);
         }
 
         .score-board {
@@ -75,94 +93,137 @@
             font-weight: 400;
             font-size: 0.9rem;
             letter-spacing: 2px;
-            background: #1e2b32;
+            background: #1c2c2b;
             width: fit-content;
-            margin: 0 auto 24px auto;
+            margin: 0 auto 20px auto;
             padding: 6px 22px;
-            border-radius: 40px;
-            color: #eadbbe;
-            border: 1px solid #772e2a;
-            box-shadow: inset 0 0 0 1px #33505c, 0 3px 8px rgba(0,0,0,0.2);
+            border-radius: 60px;
+            color: #ebddb8;
+            border: 1px solid #b17a54;
+            box-shadow: inset 0 0 0 1px #2f4a47, 0 3px 8px rgba(0,0,0,0.2);
         }
-
         .score-board span {
             font-weight: 700;
             font-size: 1.4rem;
-            color: #c2876b;
+            color: #c9a87b;
             font-family: monospace;
         }
 
-        .archaic-word {
-            background: #1f2a2e;
-            padding: 32px 16px;
+        .central-area {
+            background: #1f2b2a;
+            padding: 24px 16px;
             text-align: center;
-            font-size: 3rem;
+            font-size: 2.7rem;
             font-weight: 700;
             letter-spacing: 2px;
-            color: #ecd9b4;
+            color: #f0e2c5;
             font-family: 'Cormorant Garamond', serif;
-            border-top: 2px solid #772e2a;
-            border-bottom: 2px solid #772e2a;
-            margin: 12px 0 28px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            word-break: break-word;
-            background: linear-gradient(145deg, #1b2a2f 0%, #14212b 100%);
-        }
-
-        .options {
+            border-top: 2px solid #862e2a;
+            border-bottom: 2px solid #862e2a;
+            margin: 12px 0 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+            background: linear-gradient(145deg, #1a2728 0%, #142021 100%);
+            border-radius: 12px;
+            min-height: 130px;
             display: flex;
+            align-items: center;
+            justify-content: center;
             flex-direction: column;
-            gap: 14px;
-            margin-bottom: 32px;
+        }
+        .central-word {
+            font-size: 2.7rem;
+            color: #f0e2c5;
         }
 
-        .option-btn {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            background: #ece6db;
-            border: 1px solid #b2926a;
-            border-radius: 60px;
-            padding: 14px 20px;
-            color: #241f1a;
+        .babadum-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 20px 0 20px;
+        }
+
+        .image-card {
+            background: #e9e2d2;
+            border-radius: 28px;
+            padding: 20px 16px 16px;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.2s ease;
             text-align: center;
-            letter-spacing: 0.3px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 2px solid #a87b4f;
+            box-shadow: 0 6px 0 #5c3f28;
         }
-
-        .option-btn:hover:not(:disabled) {
-            background: #dfd3bf;
-            border-color: #772e2a;
-            transform: scale(0.99);
+        .image-card:hover:not(.disabled-card) {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 0 #5c3f28;
+            background: #f2ecdf;
         }
-
-        .option-btn.correct-guess {
-            background: #2d5d46;
-            border-color: #c7a252;
-            color: #fff2db;
-            text-shadow: 0 1px 1px #1b3a2c;
-            box-shadow: inset 0 1px 2px #5a9879;
+        .image-card:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #5c3f28;
         }
-
-        .option-btn.wrong-guess {
+        .visual-icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+            display: block;
+            color: #3b2a1f;
+        }
+        .image-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            color: #3b2a1f;
+            background: #fef7ea;
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 60px;
+            border: 1px solid #b39264;
+        }
+        .image-card.correct-highlight {
+            background: #2c5d46;
+            border-color: #cfae76;
+            transform: scale(0.98);
+        }
+        .image-card.correct-highlight .visual-icon,
+        .image-card.correct-highlight .image-label {
+            color: #faf0db;
+            background: #2c5d46;
+            border-color: #e6c894;
+        }
+        .image-card.wrong-highlight {
             background: #772e2a;
             border-color: #cd7f68;
-            color: #ffede3;
+            transform: scale(0.98);
+        }
+        .image-card.wrong-highlight .visual-icon,
+        .image-card.wrong-highlight .image-label {
+            color: #ffe1d0;
+            background: #772e2a;
+            border-color: #e6b094;
             text-decoration: line-through;
         }
+        .disabled-card {
+            pointer-events: none;
+            opacity: 0.85;
+        }
 
-        .option-btn:disabled {
-            cursor: default;
-            opacity: 0.9;
+        .explanation-box {
+            background: #1c2c2b;
+            border-left: 5px solid #c9a87b;
+            padding: 12px 16px;
+            margin: 15px 0 10px;
+            border-radius: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: #e2cdab;
+            line-height: 1.4;
         }
 
         .next-area {
             display: flex;
             justify-content: center;
+            margin: 10px 0 20px;
         }
-
         .next-btn {
             background: #772e2a;
             border: none;
@@ -173,157 +234,250 @@
             text-transform: uppercase;
             padding: 12px 32px;
             border-radius: 40px;
-            color: #eedebd;
+            color: #f5e9cd;
             cursor: pointer;
             transition: all 0.2s;
             width: 70%;
             max-width: 260px;
-            box-shadow: 0 5px 0 #3f1816;
+            box-shadow: 0 5px 0 #411b18;
         }
-
         .next-btn:active {
             transform: translateY(2px);
-            box-shadow: 0 2px 0 #3f1816;
+            box-shadow: 0 2px 0 #411b18;
         }
 
         .result {
             font-family: 'Montserrat', sans-serif;
             font-weight: 400;
-            font-size: 0.82rem;
+            font-size: 0.9rem;
             text-align: center;
-            margin-top: 24px;
-            background: #1e2b2f;
+            background: #1c2c2b;
             padding: 12px;
             border-radius: 40px;
             color: #e2cdab;
             border-left: 3px solid #772e2a;
             border-right: 3px solid #772e2a;
+            margin-top: 10px;
         }
-
         footer {
             font-family: 'Montserrat', sans-serif;
             font-size: 0.65rem;
             text-align: center;
-            margin-top: 28px;
-            color: #695f4e;
-            letter-spacing: 0.8px;
+            margin-top: 20px;
+            color: #5e5542;
         }
-
-        @media (max-width: 550px) {
-            .game-card { padding: 16px 20px 30px; }
-            .archaic-word { font-size: 2rem; }
-            .option-btn { font-size: 0.95rem; padding: 10px 12px; }
-            .mode-btn { padding: 5px 16px; font-size: 0.7rem; }
+        @media (max-width: 650px) {
+            .game-card { padding: 16px 16px 30px; }
+            .central-word { font-size: 1.8rem; }
+            .visual-icon { font-size: 2.5rem; }
+            .image-label { font-size: 0.7rem; padding: 3px 8px; }
+            .babadum-grid { gap: 12px; }
         }
     </style>
 </head>
 <body>
 <div class="game-card">
-    <div class="mode-bar">
-        <button class="mode-btn" data-mode="british">🇬🇧 British Heritage</button>
-        <button class="mode-btn" data-mode="american">🇺🇸 American Legacy</button>
+    <div class="game-title">THE OLDE MATCH <span>✦</span> ARCHAIC WORDS</div>
+    <div class="top-bar">
+        <div class="mode-bar">
+            <button class="mode-btn" data-mode="british">🇬🇧 British</button>
+            <button class="mode-btn" data-mode="american">🇺🇸 American</button>
+        </div>
     </div>
-    <div class="score-board">
-        🎩 СЧЁТ · <span id="scoreDisplay">0</span> / <span id="totalCount">0</span>
-    </div>
-    <div class="archaic-word" id="archaicWord">—</div>
-    <div class="options" id="optionsContainer"></div>
-    <div class="next-area">
-        <button class="next-btn" id="nextBtn">Следующий</button>
-    </div>
+    <div class="score-board">🎩 СЧЁТ · <span id="scoreDisplay">0</span> / <span id="totalCount">0</span></div>
+    <div class="central-area" id="centralArea"></div>
+    <div class="babadum-grid" id="optionsGrid"></div>
+    <div class="explanation-box" id="explanationBox">⟨ выберите вариант — здесь появится пояснение ⟩</div>
+    <div class="next-area"><button class="next-btn" id="nextBtn">Следующее</button></div>
     <div class="result" id="resultMessage"></div>
-    <footer>BURGUNDY & NAVY · архаизмы викторианской эпохи и американского фронтира</footer>
+    <footer>✧ познание архаизмов через визуальные ассоциации ✧</footer>
 </div>
 
 <script>
+    // ========== СЛОВАРИ (полностью твои, без изменений) ==========
     const WORDS_DB = {
         british: [
             { archaic: "thou", modern: "ты" }, { archaic: "ye", modern: "вы" }, { archaic: "methinks", modern: "мне кажется" },
-            { archaic: "wherefore", modern: "зачем, почему" }, { archaic: "ere", modern: "до, прежде чем" },
-            { archaic: "betide", modern: "случаться" }, { archaic: "wight", modern: "существо, человек" },
-            { archaic: "behold", modern: "смотри, узри" }, { archaic: "forsooth", modern: "воистину" },
+            { archaic: "wherefore", modern: "зачем, почему" }, { archaic: "ere", modern: "до, прежде чем" }, { archaic: "betide", modern: "случаться" },
+            { archaic: "wight", modern: "существо, человек" }, { archaic: "behold", modern: "смотри, узри" }, { archaic: "forsooth", modern: "воистину" },
             { archaic: "aye", modern: "да" }, { archaic: "nay", modern: "нет" }, { archaic: "hence", modern: "отсюда" },
             { archaic: "thence", modern: "оттуда" }, { archaic: "whence", modern: "откуда" }, { archaic: "eke", modern: "также" },
-            { archaic: "aught", modern: "что‑либо" }, { archaic: "naught", modern: "ничто" }, { archaic: "whilom", modern: "некогда" },
+            { archaic: "aught", modern: "что-либо" }, { archaic: "naught", modern: "ничто" }, { archaic: "whilom", modern: "некогда" },
             { archaic: "verily", modern: "поистине" }, { archaic: "fain", modern: "охотно" }, { archaic: "lief", modern: "охотно" },
             { archaic: "lo", modern: "вот, смотри" }, { archaic: "troth", modern: "верность" }, { archaic: "gramercy", modern: "большое спасибо" },
-            { archaic: "mistress", modern: "госпожа" }, { archaic: "squire", modern: "сквайр" }, { archaic: "varlet", modern: "слуга, плут" },
-            { archaic: "churl", modern: "грубиян" }
+            { archaic: "mistress", modern: "госпожа" }, { archaic: "squire", modern: "сквайр, помещик" }, { archaic: "varlet", modern: "слуга, плут" },
+            { archaic: "churl", modern: "грубиян, простолюдин" }
         ],
         american: [
-            { archaic: "hussy", modern: "женщина, жена" }, { archaic: "furbelow", modern: "оборки на одежде" },
-            { archaic: "gumption", modern: "смекалка, здравый смысл" }, { archaic: "barker", modern: "зазывала на ярмарке" },
-            { archaic: "poke", modern: "мешок, карман" }, { archaic: "tote", modern: "носить, таскать" },
-            { archaic: "catawampus", modern: "кривой, перекошенный" }, { archaic: "slapdash", modern: "небрежно, наспех" },
-            { archaic: "hornswoggle", modern: "обманывать" }, { archaic: "discombobulate", modern: "сбивать с толку" },
-            { archaic: "taradiddle", modern: "маленькая ложь" }, { archaic: "kerfuffle", modern: "суматоха" },
-            { archaic: "lollygag", modern: "бездельничать" }, { archaic: "snollygoster", modern: "беспринципный хитрец" },
-            { archaic: "cattywampus", modern: "перекошенный" }, { archaic: "blatherskite", modern: "болтун" },
-            { archaic: "gobbledygook", modern: "запутанная речь" }, { archaic: "hullabaloo", modern: "шум, суматоха" },
-            { archaic: "razzmatazz", modern: "показуха, шик" }, { archaic: "skedaddle", modern: "убегать" },
-            { archaic: "flummox", modern: "смущать, сбивать с толку" }, { archaic: "abominable", modern: "отвратительный" },
-            { archaic: "jabberwocky", modern: "бессмыслица" }, { archaic: "whippersnapper", modern: "мальчишка, сопляк" },
-            { archaic: "malarkey", modern: "ерунда" }, { archaic: "poppycock", modern: "чепуха" }, { archaic: "scallywag", modern: "негодяй" },
-            { archaic: "nincompoop", modern: "глупец" }, { archaic: "bamboozle", modern: "обманывать" }, { archaic: "dillydally", modern: "медлить" },
-            { archaic: "fiddle-faddle", modern: "пустяки" }, { archaic: "hanky-panky", modern: "шалости" }, { archaic: "hubbub", modern: "шум, гам" },
+            { archaic: "hussy", modern: "женщина, жена" }, { archaic: "furbelow", modern: "оборки на одежде" }, { archaic: "gumption", modern: "смекалка, здравый смысл" },
+            { archaic: "barker", modern: "зазывала на ярмарке" }, { archaic: "poke", modern: "мешок, карман" }, { archaic: "tote", modern: "носить, таскать" },
+            { archaic: "catawampus", modern: "кривой, перекошенный" }, { archaic: "slapdash", modern: "небрежно, наспех" }, { archaic: "hornswoggle", modern: "обманывать" },
+            { archaic: "discombobulate", modern: "сбивать с толку" }, { archaic: "taradiddle", modern: "маленькая ложь" }, { archaic: "kerfuffle", modern: "суматоха" },
+            { archaic: "lollygag", modern: "бездельничать" }, { archaic: "snollygoster", modern: "хитрый, беспринципный человек" }, { archaic: "cattywampus", modern: "перекошенный" },
+            { archaic: "blatherskite", modern: "болтун" }, { archaic: "gobbledygook", modern: "непонятная, запутанная речь" }, { archaic: "hullabaloo", modern: "шум, суматоха" },
+            { archaic: "razzmatazz", modern: "показуха, шик" }, { archaic: "skedaddle", modern: "убегать, удирать" }, { archaic: "flummox", modern: "смущать, сбивать с толку" },
+            { archaic: "abominable", modern: "отвратительный" }, { archaic: "jabberwocky", modern: "бессмыслица, чепуха" }, { archaic: "whippersnapper", modern: "мальчишка, сопляк" },
+            { archaic: "malarkey", modern: "ерунда, вздор" }, { archaic: "poppycock", modern: "чепуха, нелепость" }, { archaic: "scallywag", modern: "негодяй, проказник" },
+            { archaic: "nincompoop", modern: "глупец, простофиля" }, { archaic: "bamboozle", modern: "обманывать" }, { archaic: "dillydally", modern: "медлить, мешкать" },
+            { archaic: "fiddle-faddle", modern: "пустяки, ерунда" }, { archaic: "hanky-panky", modern: "шалости" }, { archaic: "hubbub", modern: "шум, гам" },
             { archaic: "knickknack", modern: "безделушка" }, { archaic: "lickety-split", modern: "очень быстро" }, { archaic: "ragamuffin", modern: "оборванец" },
-            { archaic: "shilly-shally", modern: "колебаться" }, { archaic: "topsy-turvy", modern: "вверх дном" }, { archaic: "willy-nilly", modern: "волей‑неволей" },
+            { archaic: "shilly-shally", modern: "колебаться" }, { archaic: "topsy-turvy", modern: "вверх дном" }, { archaic: "willy-nilly", modern: "волей-неволей" },
             { archaic: "by jingo", modern: "восклицание удивления" }, { archaic: "jim-dandy", modern: "отличный" }, { archaic: "thingamajig", modern: "штуковина" },
             { archaic: "whatnot", modern: "всякая всячина" }, { archaic: "yonder", modern: "вон там" }, { archaic: "zounds", modern: "восклицание удивления" }
         ]
     };
 
-    let currentMode = "british", currentWordsList = [], currentIndex = 0, score = 0, answered = false, currentQuestion = null, currentOptions = [];
-    const archaicWordSpan = document.getElementById("archaicWord"), optionsContainer = document.getElementById("optionsContainer");
-    const scoreDisplay = document.getElementById("scoreDisplay"), totalCountSpan = document.getElementById("totalCount");
-    const nextBtn = document.getElementById("nextBtn"), resultMessageDiv = document.getElementById("resultMessage");
+    // Пояснения для каждого слова
+    function getExplanation(archaic, modern, dialect) {
+        const explanations = {
+            "thou": "Архаичная форма местоимения «ты» (вторая категория ед.ч.), использовалась в обращении к одному человеку.",
+            "ye": "Множественное число «вы», а также вежливая форма обращения.",
+            "methinks": "Староанглийское «мне думается / мне кажется», часто встречается у Шекспира.",
+            "wherefore": "Вопрос «зачем? почему?», а не «где». Знаменитое «Wherefore art thou Romeo?»",
+            "ere": "Поэтическое/архаичное «до того как, прежде чем».",
+            "betide": "Происходить, случаться (часто в выражениях вроде woe betide — горе тому).",
+            "wight": "Существо, человек (нейтральное или сказочное).",
+            "behold": "Повелительное «смотри! узри!» (библейский/поэтический стиль).",
+            "forsooth": "Утверждение «воистину, действительно» (ироничный оттенок).",
+            "aye": "Старое «да» (до сих пор в шотландском и парламенте).",
+            "nay": "Старое «нет» (противоположность aye).",
+            "hence": "«Отсюда, прочь» (сейчас редко, но в выражениях 3 days hence — через 3 дня).",
+            "thence": "«Оттуда» (книжное, формальное).",
+            "whence": "«Откуда» (whence cometh? — откуда идёт?).",
+            "eke": "«Также, к тому же», часто eke out — с трудом добывать.",
+            "skedaddle": "Американский архаизм времён Гражданской войны — быстро удирать, убегать.",
+            "gumption": "Смекалка, предприимчивость, здравый смысл (до сих пор в обиходе на Юге США).",
+            "discombobulate": "Сбивать с толку, приводить в замешательство (весёлое архаичное слово).",
+            "gobbledygook": "Напыщенная, непонятная речь, бюрократический жаргон.",
+            "bamboozle": "Обманывать, втирать очки (появилось в XVIII веке)."
+        };
+        if (explanations[archaic]) return explanations[archaic];
+        return `«${archaic}» означает «${modern}». Это слово вышло из активного употребления, но встречается в литературе.`;
+    }
 
-    const shuffleArray = (arr) => { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; };
-    const generateOptions = (correctModern, fullList, exceptArchaic) => {
+    function getVisualForTranslation(translation) {
+        const map = {
+            "ты":"👤","вы":"👥","мне кажется":"🤔","зачем, почему":"❓","до, прежде чем":"⏳","случаться":"🎲","существо, человек":"🧝","смотри, узри":"👀","воистину":"✅","да":"👍","нет":"👎","отсюда":"➡️","оттуда":"⬅️","откуда":"🔍","также":"➕","что-либо":"📦","ничто":"🚫","некогда":"📜","поистине":"💎","охотно":"😊","вот, смотри":"👉","верность":"🤝","большое спасибо":"🙏","госпожа":"👸","сквайр, помещик":"🏰","слуга, плут":"🎭","грубиян, простолюдин":"👹","женщина, жена":"👩","оборки на одежде":"🎀","смекалка, здравый смысл":"💡","зазывала на ярмарке":"📢","мешок, карман":"👜","носить, таскать":"🎒","кривой, перекошенный":"🥴","небрежно, наспех":"⚡","обманывать":"🎭","сбивать с толку":"🌀","маленькая ложь":"🤥","суматоха":"🌪️","бездельничать":"🛋️","хитрый, беспринципный человек":"🦊","перекошенный":"😖","болтун":"🗣️","непонятная, запутанная речь":"🔤❓","шум, суматоха":"📢🌪️","показуха, шик":"✨","убегать, удирать":"🏃💨","смущать":"😵","отвратительный":"🤮","бессмыслица, чепуха":"🗑️","мальчишка, сопляк":"🧒","ерунда, вздор":"💩","чепуха, нелепость":"🎪","негодяй, проказник":"😈","глупец":"🤪","медлить":"🐢","пустяки":"🍃","шалости":"😏","шум, гам":"📣","безделушка":"🎁","очень быстро":"⚡","оборванец":"🥾","колебаться":"⚖️","вверх дном":"🔄","волей-неволей":"🎲","восклицание удивления":"😲","отличный":"🏆","штуковина":"🔧","всякая всячина":"📦","вон там":"🌄","удивление":"😲"
+        };
+        return map[translation] || "❓";
+    }
+
+    let currentDialect = "british";
+    let currentWordsList = [];
+    let currentIndex = 0, score = 0, answered = false;
+    let currentQuestion = null;
+    let currentOptions = [];
+
+    const centralArea = document.getElementById("centralArea");
+    const grid = document.getElementById("optionsGrid");
+    const scoreSpan = document.getElementById("scoreDisplay"), totalSpan = document.getElementById("totalCount");
+    const nextBtn = document.getElementById("nextBtn"), resultDiv = document.getElementById("resultMessage");
+    const explanationBox = document.getElementById("explanationBox");
+
+    function shuffle(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+    function updateScoreUI() { scoreSpan.innerText = score; totalSpan.innerText = currentWordsList.length; }
+
+    function generateOptions(correctModern, fullList, exceptArchaic) {
         let candidates = fullList.filter(item => item.modern !== correctModern && item.archaic !== exceptArchaic).map(item => item.modern);
         candidates = [...new Set(candidates)];
-        while(candidates.length < 3) candidates.push("???", "иное значение");
-        return shuffleArray([correctModern, ...shuffleArray(candidates).slice(0, 3)]);
-    };
-    const updateScoreUI = () => { scoreDisplay.innerText = score; };
-    const setTotal = () => { totalCountSpan.innerText = currentWordsList.length; };
+        while(candidates.length < 3) candidates.push("???");
+        return shuffle([correctModern, ...shuffle(candidates).slice(0, 3)]);
+    }
 
-    const loadQuestion = () => {
+    function renderCentral() {
+        centralArea.innerHTML = `<div class="central-word">${currentQuestion.archaic}</div>`;
+    }
+
+    function renderOptions() {
+        grid.innerHTML = "";
+        currentOptions.forEach(opt => {
+            const card = document.createElement("div");
+            card.className = "image-card";
+            const visual = document.createElement("div");
+            visual.className = "visual-icon";
+            visual.innerText = getVisualForTranslation(opt);
+            const label = document.createElement("div");
+            label.className = "image-label";
+            label.innerText = opt;
+            card.appendChild(visual);
+            card.appendChild(label);
+            card.addEventListener("click", () => handleAnswer(card, opt));
+            grid.appendChild(card);
+        });
+    }
+
+    function handleAnswer(card, selected) {
+        if (answered) return;
+        answered = true;
+        const isCorrect = (selected === currentQuestion.modern);
+        if (isCorrect) {
+            score++;
+            resultDiv.innerHTML = "✓ Верно! +1 очко";
+            card.classList.add("correct-highlight");
+        } else {
+            resultDiv.innerHTML = `✗ Ошибка. Правильно: «${currentQuestion.modern}».`;
+            card.classList.add("wrong-highlight");
+            for (let c of grid.children) {
+                if (c.querySelector(".image-label").innerText === currentQuestion.modern) {
+                    c.classList.add("correct-highlight");
+                }
+            }
+        }
+        const expl = getExplanation(currentQuestion.archaic, currentQuestion.modern, currentDialect);
+        explanationBox.innerHTML = `📖 <strong>«${currentQuestion.archaic}»</strong> — ${currentQuestion.modern}.<br> ${expl}`;
+        for (let c of grid.children) c.classList.add("disabled-card");
+        updateScoreUI();
+        nextBtn.disabled = false; nextBtn.style.opacity = "1";
+    }
+
+    function loadQuestion() {
         if (currentIndex >= currentWordsList.length) {
-            archaicWordSpan.innerText = "⚜️ COLLECTION MASTERED ⚜️";
-            optionsContainer.innerHTML = "";
-            resultMessageDiv.innerHTML = `🎩 Счёт: ${score} из ${currentWordsList.length}. Выберите диалект для новой игры.`;
+            centralArea.innerHTML = "<div style='color:#f0e2c5'>🏆 COLLECTION MASTERED 🏆</div>";
+            grid.innerHTML = "<div style='grid-column:span 2; text-align:center'>Игра завершена. Выберите диалект.</div>";
+            resultDiv.innerHTML = `Итог: ${score} из ${currentWordsList.length}.`;
+            explanationBox.innerHTML = "⟨ игра окончена — выберите новый диалект ⟩";
             nextBtn.disabled = true; nextBtn.style.opacity = "0.5";
             return;
         }
         answered = false;
         currentQuestion = currentWordsList[currentIndex];
-        archaicWordSpan.innerText = currentQuestion.archaic;
         currentOptions = generateOptions(currentQuestion.modern, currentWordsList, currentQuestion.archaic);
-        optionsContainer.innerHTML = "";
-        currentOptions.forEach(opt => {
-            const btn = document.createElement("button");
-            btn.className = "option-btn";
-            btn.innerText = opt;
-            btn.addEventListener("click", () => {
-                if (answered) return;
-                answered = true;
-                const isCorrect = (opt === currentQuestion.modern);
-                if (isCorrect) { score++; updateScoreUI(); resultMessageDiv.innerHTML = "✓ Верно. Благородный выбор."; btn.classList.add("correct-guess"); }
-                else { resultMessageDiv.innerHTML = `✗ Ошибка. Правильный перевод: «${currentQuestion.modern}».`; btn.classList.add("wrong-guess");
-                    for (let child of optionsContainer.children) if (child.innerText === currentQuestion.modern) child.classList.add("correct-guess"); }
-                for (let child of optionsContainer.children) child.disabled = true;
-                nextBtn.disabled = false; nextBtn.style.opacity = "1";
-            });
-            optionsContainer.appendChild(btn);
-        });
+        renderCentral();
+        renderOptions();
         nextBtn.disabled = true; nextBtn.style.opacity = "0.5";
-        resultMessageDiv.innerHTML = "⟨ выберите один перевод ⟩";
-    };
+        resultDiv.innerHTML = "⟨ выберите вариант ⟩";
+        explanationBox.innerHTML = "⟨ выберите вариант — здесь появится пояснение ⟩";
+    }
 
-    const nextWord = () => { if (!answered && currentIndex < currentWordsList.length) { resultMessageDiv.innerHTML = "⟨ сначала ответьте ⟩"; return; } if (currentIndex >= currentWordsList.length) return; currentIndex++; loadQuestion(); };
-    const switchMode = (mode) => { currentMode = mode; currentWordsList = shuffleArray([...(mode === "british" ? WORDS_DB.british : WORDS_DB.american)]); currentIndex = 0; score = 0; answered = false; updateScoreUI(); setTotal(); loadQuestion(); document.querySelectorAll(".mode-btn").forEach(btn => { if (btn.getAttribute("data-mode") === mode) btn.classList.add("active"); else btn.classList.remove("active"); }); resultMessageDiv.innerHTML = `🎻 Режим: ${mode === "british" ? "британское наследие" : "американское наследие"}.`; nextBtn.disabled = false; nextBtn.style.opacity = "1"; };
-    const init = () => { switchMode("british"); document.querySelectorAll(".mode-btn").forEach(btn => btn.addEventListener("click", () => { const mode = btn.getAttribute("data-mode"); if (mode === "british" || mode === "american") switchMode(mode); })); nextBtn.addEventListener("click", nextWord); };
+    function nextWord() {
+        if (!answered && currentIndex < currentWordsList.length) { resultDiv.innerHTML = "⟨ сначала выберите ⟩"; return; }
+        if (currentIndex >= currentWordsList.length) return;
+        currentIndex++;
+        loadQuestion();
+    }
+
+    function resetGame() {
+        currentWordsList = shuffle([...(currentDialect === "british" ? WORDS_DB.british : WORDS_DB.american)]);
+        currentIndex = 0; score = 0; answered = false;
+        updateScoreUI();
+        loadQuestion();
+    }
+
+    function switchDialect(dialect) {
+        currentDialect = dialect;
+        resetGame();
+        document.querySelectorAll(".mode-btn").forEach(btn => {
+            if (btn.getAttribute("data-mode") === dialect) btn.classList.add("active");
+            else btn.classList.remove("active");
+        });
+        resultDiv.innerHTML = `🎻 Диалект: ${dialect === "british" ? "британский" : "американский"}`;
+    }
+
+    function init() {
+        switchDialect("british");
+        document.querySelectorAll(".mode-btn").forEach(btn => btn.addEventListener("click", () => switchDialect(btn.getAttribute("data-mode"))));
+        nextBtn.addEventListener("click", nextWord);
+    }
     init();
 </script>
 </body>

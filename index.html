@@ -87,24 +87,31 @@
             box-shadow: inset 0 1px 2px rgba(0,0,0,0.2), 0 2px 6px rgba(119,46,42,0.4);
         }
 
-        .score-board {
+        .stats-board {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 0 auto 20px auto;
+            flex-wrap: wrap;
+        }
+        .stat-card {
             text-align: center;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
             background: #1c2c2b;
-            width: fit-content;
-            margin: 0 auto 20px auto;
-            padding: 6px 22px;
+            padding: 8px 20px;
             border-radius: 60px;
             color: #ebddb8;
             border: 1px solid #b17a54;
             box-shadow: inset 0 0 0 1px #2f4a47, 0 3px 8px rgba(0,0,0,0.2);
         }
-        .score-board span {
+        .stat-card span:first-child {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            display: block;
+        }
+        .stat-card span:last-child {
             font-weight: 700;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: #c9a87b;
             font-family: monospace;
         }
@@ -284,17 +291,28 @@
             <button class="mode-btn" data-mode="american">🇺🇸 American</button>
         </div>
     </div>
-    <div class="score-board">🎩 СЧЁТ · <span id="scoreDisplay">0</span> / <span id="totalCount">0</span></div>
+    
+    <div class="stats-board">
+        <div class="stat-card">
+            <span>🏆 ОЧКИ</span>
+            <span id="scoreDisplay">0</span>
+        </div>
+        <div class="stat-card">
+            <span>✨ БОНУСЫ</span>
+            <span id="bonusDisplay">0</span>
+        </div>
+    </div>
+    
     <div class="central-area" id="centralArea"></div>
     <div class="babadum-grid" id="optionsGrid"></div>
     <div class="explanation-box" id="explanationBox">⟨ выберите вариант — здесь появится пояснение ⟩</div>
     <div class="next-area"><button class="next-btn" id="nextBtn">Следующее</button></div>
     <div class="result" id="resultMessage"></div>
-    <footer>✧ познание архаизмов через визуальные ассоциации ✧</footer>
+    <footer>✧ 3 верных ответа = +1 бонус · ошибка = −1 бонус ✧</footer>
 </div>
 
 <script>
-    // ========== СЛОВАРИ (полностью твои, без изменений) ==========
+    // ========== СЛОВАРИ ==========
     const WORDS_DB = {
         british: [
             { archaic: "thou", modern: "ты" }, { archaic: "ye", modern: "вы" }, { archaic: "methinks", modern: "мне кажется" },
@@ -327,32 +345,19 @@
         ]
     };
 
-    // Пояснения для каждого слова
-    function getExplanation(archaic, modern, dialect) {
+    // Пояснения
+    function getExplanation(archaic, modern) {
         const explanations = {
-            "thou": "Архаичная форма местоимения «ты» (вторая категория ед.ч.), использовалась в обращении к одному человеку.",
-            "ye": "Множественное число «вы», а также вежливая форма обращения.",
-            "methinks": "Староанглийское «мне думается / мне кажется», часто встречается у Шекспира.",
-            "wherefore": "Вопрос «зачем? почему?», а не «где». Знаменитое «Wherefore art thou Romeo?»",
-            "ere": "Поэтическое/архаичное «до того как, прежде чем».",
-            "betide": "Происходить, случаться (часто в выражениях вроде woe betide — горе тому).",
-            "wight": "Существо, человек (нейтральное или сказочное).",
-            "behold": "Повелительное «смотри! узри!» (библейский/поэтический стиль).",
-            "forsooth": "Утверждение «воистину, действительно» (ироничный оттенок).",
-            "aye": "Старое «да» (до сих пор в шотландском и парламенте).",
-            "nay": "Старое «нет» (противоположность aye).",
-            "hence": "«Отсюда, прочь» (сейчас редко, но в выражениях 3 days hence — через 3 дня).",
-            "thence": "«Оттуда» (книжное, формальное).",
-            "whence": "«Откуда» (whence cometh? — откуда идёт?).",
-            "eke": "«Также, к тому же», часто eke out — с трудом добывать.",
-            "skedaddle": "Американский архаизм времён Гражданской войны — быстро удирать, убегать.",
-            "gumption": "Смекалка, предприимчивость, здравый смысл (до сих пор в обиходе на Юге США).",
-            "discombobulate": "Сбивать с толку, приводить в замешательство (весёлое архаичное слово).",
-            "gobbledygook": "Напыщенная, непонятная речь, бюрократический жаргон.",
-            "bamboozle": "Обманывать, втирать очки (появилось в XVIII веке)."
+            "thou": "Архаичная форма местоимения «ты».",
+            "ye": "Множественное число «вы», вежливая форма.",
+            "methinks": "«Мне думается», часто у Шекспира.",
+            "wherefore": "«Зачем? почему?» (не «где»).",
+            "ere": "«До того как», «прежде чем».",
+            "skedaddle": "Американский архаизм — быстро убегать.",
+            "gumption": "Смекалка, находчивость, здравый смысл.",
+            "discombobulate": "Сбивать с толку, приводить в замешательство.",
         };
-        if (explanations[archaic]) return explanations[archaic];
-        return `«${archaic}» означает «${modern}». Это слово вышло из активного употребления, но встречается в литературе.`;
+        return explanations[archaic] || `«${archaic}» означает «${modern}». Слово вышло из употребления, но встречается в классике.`;
     }
 
     function getVisualForTranslation(translation) {
@@ -364,18 +369,28 @@
 
     let currentDialect = "british";
     let currentWordsList = [];
-    let currentIndex = 0, score = 0, answered = false;
+    let currentIndex = 0;
+    let score = 0;
+    let bonus = 0;
+    let correctStreak = 0;      // счётчик правильных ответов подряд для бонуса
+    let answered = false;
     let currentQuestion = null;
     let currentOptions = [];
 
     const centralArea = document.getElementById("centralArea");
     const grid = document.getElementById("optionsGrid");
-    const scoreSpan = document.getElementById("scoreDisplay"), totalSpan = document.getElementById("totalCount");
-    const nextBtn = document.getElementById("nextBtn"), resultDiv = document.getElementById("resultMessage");
+    const scoreSpan = document.getElementById("scoreDisplay");
+    const bonusSpan = document.getElementById("bonusDisplay");
+    const nextBtn = document.getElementById("nextBtn");
+    const resultDiv = document.getElementById("resultMessage");
     const explanationBox = document.getElementById("explanationBox");
 
     function shuffle(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
-    function updateScoreUI() { scoreSpan.innerText = score; totalSpan.innerText = currentWordsList.length; }
+    
+    function updateUI() {
+        scoreSpan.innerText = score;
+        bonusSpan.innerText = bonus;
+    }
 
     function generateOptions(correctModern, fullList, exceptArchaic) {
         let candidates = fullList.filter(item => item.modern !== correctModern && item.archaic !== exceptArchaic).map(item => item.modern);
@@ -406,60 +421,86 @@
         });
     }
 
+    function applyBonus() {
+        // Каждые 3 правильных ответа подряд дают +1 бонус
+        if (correctStreak > 0 && correctStreak % 3 === 0) {
+            bonus++;
+            resultDiv.innerHTML += `<br>✨ БОНУС! +1 (${correctStreak} верных подряд) ✨`;
+            updateUI();
+        }
+    }
+
     function handleAnswer(card, selected) {
         if (answered) return;
         answered = true;
         const isCorrect = (selected === currentQuestion.modern);
+        
         if (isCorrect) {
             score++;
+            correctStreak++;
             resultDiv.innerHTML = "✓ Верно! +1 очко";
             card.classList.add("correct-highlight");
+            applyBonus();  // проверяем, не накопилось ли 3 правильных
         } else {
             resultDiv.innerHTML = `✗ Ошибка. Правильно: «${currentQuestion.modern}».`;
             card.classList.add("wrong-highlight");
+            // за ошибку вычитаем бонус (но не ниже нуля)
+            if (bonus > 0) {
+                bonus--;
+                resultDiv.innerHTML += `<br>⚠️ Бонус -1 ⚠️`;
+            }
+            correctStreak = 0;  // сбрасываем серию
             for (let c of grid.children) {
                 if (c.querySelector(".image-label").innerText === currentQuestion.modern) {
                     c.classList.add("correct-highlight");
                 }
             }
         }
-        const expl = getExplanation(currentQuestion.archaic, currentQuestion.modern, currentDialect);
+        
+        const expl = getExplanation(currentQuestion.archaic, currentQuestion.modern);
         explanationBox.innerHTML = `📖 <strong>«${currentQuestion.archaic}»</strong> — ${currentQuestion.modern}.<br> ${expl}`;
+        
         for (let c of grid.children) c.classList.add("disabled-card");
-        updateScoreUI();
-        nextBtn.disabled = false; nextBtn.style.opacity = "1";
+        updateUI();
+        nextBtn.disabled = false; 
+        nextBtn.style.opacity = "1";
     }
 
     function loadQuestion() {
+        // Бесконечная игра: когда слова заканчиваются — перемешиваем заново
         if (currentIndex >= currentWordsList.length) {
-            centralArea.innerHTML = "<div style='color:#f0e2c5'>🏆 COLLECTION MASTERED 🏆</div>";
-            grid.innerHTML = "<div style='grid-column:span 2; text-align:center'>Игра завершена. Выберите диалект.</div>";
-            resultDiv.innerHTML = `Итог: ${score} из ${currentWordsList.length}.`;
-            explanationBox.innerHTML = "⟨ игра окончена — выберите новый диалект ⟩";
-            nextBtn.disabled = true; nextBtn.style.opacity = "0.5";
-            return;
+            currentWordsList = shuffle([...(currentDialect === "british" ? WORDS_DB.british : WORDS_DB.american)]);
+            currentIndex = 0;
         }
+        
         answered = false;
         currentQuestion = currentWordsList[currentIndex];
         currentOptions = generateOptions(currentQuestion.modern, currentWordsList, currentQuestion.archaic);
         renderCentral();
         renderOptions();
-        nextBtn.disabled = true; nextBtn.style.opacity = "0.5";
+        nextBtn.disabled = true; 
+        nextBtn.style.opacity = "0.5";
         resultDiv.innerHTML = "⟨ выберите вариант ⟩";
         explanationBox.innerHTML = "⟨ выберите вариант — здесь появится пояснение ⟩";
     }
 
     function nextWord() {
-        if (!answered && currentIndex < currentWordsList.length) { resultDiv.innerHTML = "⟨ сначала выберите ⟩"; return; }
-        if (currentIndex >= currentWordsList.length) return;
+        if (!answered && currentIndex < currentWordsList.length) { 
+            resultDiv.innerHTML = "⟨ сначала выберите ⟩"; 
+            return; 
+        }
         currentIndex++;
         loadQuestion();
     }
 
     function resetGame() {
         currentWordsList = shuffle([...(currentDialect === "british" ? WORDS_DB.british : WORDS_DB.american)]);
-        currentIndex = 0; score = 0; answered = false;
-        updateScoreUI();
+        currentIndex = 0;
+        score = 0;
+        bonus = 0;
+        correctStreak = 0;
+        answered = false;
+        updateUI();
         loadQuestion();
     }
 
